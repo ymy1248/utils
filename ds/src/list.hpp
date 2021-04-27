@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-
+#include <assert.h>
 namespace ymy{
 
 template <typename V>
