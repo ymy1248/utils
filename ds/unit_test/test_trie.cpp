@@ -1,5 +1,6 @@
 #include "trie.hpp"
 #include <stdio.h>
+#include <string>
 // #include "gtest/gtest.h"
 // 
 // TEST(Trie, Insert){
@@ -9,6 +10,6 @@
 // }
 //
 int main() {
-  printf("tetst");
-  return 0;
+  ymy::Trie trie;
+  trie.insert("test");
 }

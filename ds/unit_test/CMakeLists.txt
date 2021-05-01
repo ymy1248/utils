@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(test_ds)
+# project(test_ds)
 
 set(CMAKE_CXX_STANDARD 11)
 # include(FetchContent)
@@ -12,9 +12,9 @@ set(CMAKE_CXX_STANDARD 11)
 # 
 # enable_testing()
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
 add_executable(test_trie test_trie.cpp)
-include_directories(/Users/ymy1248/ymy_lib)
-# target_link_libraries
+target_link_libraries(test_trie ymy_ds)
 
 # target_link_libraries(
 #   test_trie
