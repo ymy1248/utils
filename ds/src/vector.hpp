@@ -78,7 +78,6 @@ template <typename T>
 void
 vector<T>::resize(unsigned int n, T t) 
 {
-  if (n > 
 }
 }
 

@@ -4,4 +4,5 @@
 TEST(Trie, insert) {
   ymy::Trie t;
   t.insert("test");
+  t.count("test");
 }
