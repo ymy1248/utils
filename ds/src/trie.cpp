@@ -18,8 +18,8 @@ Trie::count(const string &word) const{
   return 0;
 }
 
-uint32_t 
-Trie::prefixCount(const string &pre) const{
+uint32_t
+Trie::prefixCount(const char* pre) const {
   const Node *n = getNode(pre);
   uint32_t count = n->count;
   queue<const Node*> q;
@@ -28,11 +28,17 @@ Trie::prefixCount(const string &pre) const{
     n = q.front();
     q.pop();
     count += n->count;
-    for (auto next : n->next) {
-      q.push(next);
+    for (size_t i = 0; i < 256; ++i) {
+      if (n->next[i])
+        q.push(n->next[i]);
     }
   }
   return count;
+}
+
+uint32_t
+Trie::prefixCount(const string &pre) const{
+  return prefixCount(pre.c_str());
 }
 
 bool 
@@ -41,16 +47,23 @@ Trie::existPrefix(const string &pre) const{
   return n == nullptr;
 }
 
-const Trie::Node* 
-Trie::getNode(const string &word) const {
+const Trie::Node*
+Trie::getNode(const char* word) const {
   const Node *n = &root;
-  for (auto c : word) {
-    if (!n->next[c]) {
+  const char *c = word;
+  while (*c) {
+    if (!n->next[*c]) {
       return nullptr;
     }
-    n = n->next[c];
+    n = n->next[*c];
+    ++c;
   }
   return n;
+}
+
+const Trie::Node* 
+Trie::getNode(const string &word) const {
+  return getNode(word.c_str());
 }
 
 Trie::Node* 
