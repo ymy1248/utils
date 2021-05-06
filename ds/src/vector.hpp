@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef DS_VECTOR_HPP_
+#define DS_VECTOR_HPP_
 
 #include <iostream>
 #include "ds.hpp"
@@ -20,16 +20,16 @@ public:
   T& operator[](unsigned int index);
   void push_back(T &t);
   void clear();
-  bool empty() const { return d_size == 0; }
-  unsigned int size() const { return d_size; }
-  unsigned int capacity() const { return d_capacity; }
+  bool empty() const { return size_ == 0; }
+  unsigned int size() const { return size_; }
+  unsigned int capacity() const { return capacity_; }
   void reserve(unsigned int n, T t = T());
   void resize(unsigned int n);
 
 private:
-  unsigned int d_size;
-  unsigned int d_capacity;
-  T* d_array;
+  unsigned int size_;
+  unsigned int capacity_;
+  T* array_;
   bool checkCap();
   bool expand();
   bool shink();
@@ -37,46 +37,51 @@ private:
 
 template <typename T>
 vector<T>::vector() :
-  d_size(0),
-  d_capacity(0)
+  size_(0),
+  capacity_(0)
 {}
 
 template <typename T>
 vector<T>::vector(unsigned int n) :
-  d_size(n),
-  d_capacity(n)
+  size_(n),
+  capacity_(n)
 {
-  d_array = static_cast<T*>(malloc(d_capacity * sizeof(T)));
-  memset(d_array, 0, d_capacity * sizeof(T));
+  array_ = static_cast<T*>(malloc(capacity_ * sizeof(T)));
+  memset(array_, 0, capacity_ * sizeof(T));
 }
 
 template <typename T>
 vector<T>::vector(unsigned int n, const T &t) :
-  d_size(n),
-  d_capacity(n)
-{
-  d_array = static_cast<T*>(malloc(d_capacity * sizeof(T)));
+  size_(n),
+  capacity_(n) {
+  array_ = static_cast<T*>(malloc(capacity_ * sizeof(T)));
   for (int i = 0; i < n; ++i) {
-    d_array[i] = t;
+    array_[i] = t;
   }
 }
 
 template <typename T>
 void
-vector<T>::push_back(T &t)
-{
+vector<T>::push_back(T &t) {
+  if (size_ == capacity_) {
+    expand();
+  }
+  memcpy(array_[++size], &t, sizeof(t));
 }
 
 template <typename T>
 bool
-vector<T>::expand()
-{
-  assert(d_size == d_capacity);
+vector<T>::expand() {
+  capacity_ *= EXPAND_FACTOR;
+  void *old_array = array_;
+  array_ = malloc(sizeof(T) * capacity_);
+  memcpy(array_, old_array, sizeof(T) * size_);
+  free(old_array);
 }
 
 template <typename T>
 void
-vector<T>::resize(unsigned int n, T t) 
+vector<T>::resize(unsigned int n) 
 {
 }
 }
