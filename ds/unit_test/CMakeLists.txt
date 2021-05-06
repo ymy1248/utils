@@ -1,13 +1,18 @@
 find_package(GTest REQUIRED)
+find_package(Boost REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+# set(CMKE_CXX_FLAGS "-lboost_timer")
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON) 
 
 enable_testing()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src ${Boost_INCLUDE_DIRS})
+
 add_executable(test_trie test_trie.cpp)
 add_executable(test_vector test_vector.cpp)
-target_link_libraries(test_trie ${GTEST_BOTH_LIBRARIES} ymy_ds)
-target_link_libraries(test_vector ${GTEST_BOTH_LIBRARIES} ymy_ds)
+target_link_libraries(test_trie ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} ymy_ds)
+target_link_libraries(test_vector ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} ymy_ds)
 
 include(GoogleTest)
 
