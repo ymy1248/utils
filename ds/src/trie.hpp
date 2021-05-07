@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <cstring>
 
 using namespace std;
 
@@ -25,9 +25,11 @@ namespace ymy {
       bool exist(const string &word) const;
       bool existPrefix(const string &pre) const;
       uint32_t prefixCount(const string &pre) const;
+      uint32_t prefixCount(const char* pre) const;
     private:
       Node* getOrCreateNode(const string &word);
       const Node* getNode(const string &word) const;
+      const Node* getNode(const char *word) const;
       Node root;
   };
 }

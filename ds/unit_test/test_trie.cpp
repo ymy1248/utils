@@ -1,15 +1,11 @@
+#include <gtest/gtest.h>
 #include "trie.hpp"
-#include <stdio.h>
-#include <string>
-// #include "gtest/gtest.h"
-// 
-// TEST(Trie, Insert){
-//   ymy::Trie trie;
-//   trie.insert("test");
-//   EXPECT_EQ(7 * 6, 42);
-// }
-//
-int main() {
-  ymy::Trie trie;
-  trie.insert("test");
+
+TEST(Trie, insert) {
+  ymy::Trie t;
+  t.insert("Test");
+  EXPECT_EQ(t.count("Test"), 1);
+  t.insert("Te");
+  EXPECT_EQ(t.count("Te"), 1);
+  EXPECT_EQ(t.prefixCount("T"), 2);
 }
