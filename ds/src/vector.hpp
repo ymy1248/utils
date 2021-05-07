@@ -121,7 +121,8 @@ vector<T>::operator=(const vector &that) {
 template <typename T>
 vector<T>::vector() :
   size_(0),
-  capacity_(0)
+  capacity_(0),
+  array_(nullptr)
 {}
 
 template <typename T>
@@ -145,6 +146,7 @@ vector<T>::vector(unsigned int n, const T &t) :
   capacity_(n) {
   array_ = static_cast<T*>(malloc(capacity_ * sizeof(T)));
   for (int i = 0; i < n; ++i) {
+
     array_[i] = t;
   }
 }
@@ -156,13 +158,15 @@ vector<T>::push_back(T &t) {
   if (size_ == capacity_) {
     expand();
   }
-  memcpy(&array_[++size_], (void*)&t, sizeof(t));
+  array_[size_++] = t;
+  // memcpy(&array_[size_++], (void*)&t, sizeof(t));
 }
 
 template <typename T>
 bool
 vector<T>::expand() {
-  capacity_ *= EXPAND_FACTOR;
+  if (capacity_ == 0) capacity_ = 1;
+  else capacity_ *= EXPAND_FACTOR;
   reserve(capacity_);
   return true;
 }
