@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef DS_LIST_HPP
+#define DS_LIST_HPP
 
 #include <iostream>
 #include <string>
