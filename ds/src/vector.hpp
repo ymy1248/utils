@@ -14,11 +14,12 @@ class vector {
   class Iter {
    public:
      Iter(vector *owner, size_t index) : owner_(owner), index_(index) {}
-    size_t getIndex() { return index_; }
+    size_t getIndex() const { return index_; }
     Iter& operator++() { ++index_; return *this; }
     Iter& operator--() { --index_; return *this; }
-    T operator*() { return *owner_->array_[index_];}
-    bool operator==(const Iter &that) { return index_ == that.getIndex(); }
+    T& operator*() { return owner_->array_[index_];}
+    bool operator==(const Iter &that) const { return index_ == that.getIndex(); }
+    bool operator!=(const Iter &that) const { return !operator==(that); }
 
    private:
     vector *owner_;
@@ -47,7 +48,7 @@ class vector {
   void reserve(size_t capacity);
 
   Iter begin() { return Iter(this, 0); }
-  Iter end() { return Iter(this, size); }
+  Iter end() { return Iter(this, size()); }
 
  private:
   size_t size_;

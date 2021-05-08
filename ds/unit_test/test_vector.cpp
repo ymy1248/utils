@@ -27,4 +27,9 @@ TEST(vector, push_back) {
   for (int i = 0; i < data_size; ++i) {
     ASSERT_EQ(ymyV[i], i);
   }
+
+  int i = 0;
+  for (auto &n : ymyV) {
+    ASSERT_EQ(n, ymyV[i++]);
+  }
 }
