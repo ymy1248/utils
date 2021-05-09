@@ -7,7 +7,7 @@ TEST(vector, push_back) {
   ymy::vector<int> ymyV;
   std::vector<int> stdV;
 
-  int data_size = 1E8;
+  int data_size = 1E7;
 
   boost::timer::cpu_timer timer;
   timer.start();

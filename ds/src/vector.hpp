@@ -13,7 +13,7 @@ class vector {
  public:
   class Iter {
    public:
-     Iter(vector *owner, size_t index) : owner_(owner), index_(index) {}
+    Iter(vector *owner, size_t index) : owner_(owner), index_(index) {}
     size_t getIndex() const { return index_; }
     Iter& operator++() { ++index_; return *this; }
     Iter& operator--() { --index_; return *this; }
