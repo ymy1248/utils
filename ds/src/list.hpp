@@ -13,10 +13,12 @@ class list {
  public:
   class Iter {
    public:
+    Iter(Node *node) : node_(node) {}
     bool operator==(const Iter &that) { return node_ == that.node_; }
     bool operator!=(const Iter &that) { return !operator==(that); }
-    Iter& operator++() { node_ = node->next; return *this; }
-    Iter& operator--() { node_ = node->prev; return *this; }
+    Iter& operator++() { node_ = node_->next_; return *this; }
+    Iter& operator--() { node_ = node_->prev_; return *this; }
+    V& operator*() { return node_->val_; }
    private:
     Node *node_;
   };
@@ -30,7 +32,8 @@ class list {
   void pop_back();
   void pop_front();
   void clear();
-  Iter begin() { return Iter(dummy_); }
+  Iter begin() { return Iter(dummy_->next_); }
+  Iter end() { return Iter(dummy_); }
 
   size_t size() const { return size_; }
   bool empty() const {return size_ == 0; }

@@ -23,4 +23,9 @@ TEST(list, modify) {
     std_l.push_back(i);
   }
   printf("stl list push_back: %s\n", timer.format().c_str());
+
+  size_t i = 0;
+  for (auto &n : ymy_l) {
+    ASSERT_EQ(i++, n);
+  }
 }
