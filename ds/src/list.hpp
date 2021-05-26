@@ -8,7 +8,21 @@ namespace ymy{
 
 template <typename V>
 class list {
-public:
+ private:
+  struct Node;
+ public:
+  class Iter {
+   public:
+    Iter(Node *node) : node_(node) {}
+    bool operator==(const Iter &that) { return node_ == that.node_; }
+    bool operator!=(const Iter &that) { return !operator==(that); }
+    Iter& operator++() { node_ = node_->next_; return *this; }
+    Iter& operator--() { node_ = node_->prev_; return *this; }
+    V& operator*() { return node_->val_; }
+   private:
+    Node *node_;
+  };
+
   list();
   list<V> &add(V val);
 
@@ -18,9 +32,11 @@ public:
   void pop_back();
   void pop_front();
   void clear();
+  Iter begin() { return Iter(dummy_->next_); }
+  Iter end() { return Iter(dummy_); }
 
-  size_t size() const { return d_size; }
-  bool empty() const {return d_size == 0; }
+  size_t size() const { return size_; }
+  bool empty() const {return size_ == 0; }
   void show() const;
   virtual ~list();
 
@@ -29,87 +45,87 @@ public:
 
 private:
   struct Node {
-    V d_val;
-    Node *d_next;
-    Node *d_prev;
+    V val_;
+    Node *next_;
+    Node *prev_;
 
     Node(): 
-      d_next(nullptr),
-      d_prev(nullptr)
+      next_(nullptr),
+      prev_(nullptr)
     {};
 
-    Node(V &v): 
-      d_val(v), 
-      d_next(nullptr),
-      d_prev(nullptr)
+    Node(V &v) :
+      val_(v), 
+      next_(nullptr),
+      prev_(nullptr)
     {};
   };
-  unsigned int d_size;
-  Node *d_dummy;
+  unsigned int size_;
+  Node *dummy_;
 };
 
 template <typename V>
 list<V>::list() :
-  d_size(0),
-  d_dummy(new Node())
+  size_(0),
+  dummy_(new Node())
 {
-  d_dummy->d_next = d_dummy;
-  d_dummy->d_prev = d_dummy;
+  dummy_->next_ = dummy_;
+  dummy_->prev_ = dummy_;
 }
 
 template <typename V>
 void list<V>::push_back(V &val) 
 {
   Node *node = nullptr;
-  ++d_size;
-  node = d_dummy->d_prev->d_next = new Node(val);
-  node->d_prev = d_dummy->d_prev;
-  node->d_next = d_dummy;
-  d_dummy->d_prev = node;
+  ++size_;
+  node = dummy_->prev_->next_ = new Node(val);
+  node->prev_ = dummy_->prev_;
+  node->next_ = dummy_;
+  dummy_->prev_ = node;
 }
 
 template<typename V>
 void list<V>::push_front(V &val)
 {
   Node *node = nullptr;
-  ++d_size;
-  node = d_dummy->d_next->d_prev = new Node(val);
-  node->d_next = d_dummy->d_next;
-  node->d_prev = d_dummy;
-  d_dummy->d_next = node;
+  ++size_;
+  node = dummy_->next_->prev_ = new Node(val);
+  node->next_ = dummy_->next_;
+  node->prev_ = dummy_;
+  dummy_->next_ = node;
 }
 
 template<typename V>
 void list<V>::pop_front()
 {
-  assert(d_size >= 0);
-  if (d_size == 0) return;
-  auto node = d_dummy->d_next;
-  d_dummy->d_next = node->d_next;
-  node->d_next->d_prev = d_dummy;
+  assert(size_ >= 0);
+  if (size_ == 0) return;
+  auto node = dummy_->next_;
+  dummy_->next_ = node->next_;
+  node->next_->prev_ = dummy_;
   delete node;
 }
 
 template<typename V>
 void list<V>::pop_back()
 {
-  assert(d_size >= 0);
-  if (d_size == 0) return;
-  auto node = d_dummy->d_prev;
-  d_dummy->d_prev = node->d_prev;
-  node->d_next->d_prev = d_dummy;
+  assert(size_ >= 0);
+  if (size_ == 0) return;
+  auto node = dummy_->prev_;
+  dummy_->prev_ = node->prev_;
+  node->next_->prev_ = dummy_;
   delete node;
 }
 
 template <typename V>
 void list<V>::clear(){
-    Node *p = d_dummy->d_next;
-    while (p != d_dummy->d_prev) {
-        Node *next = p->d_next;
+    Node *p = dummy_->next_;
+    while (p != dummy_->prev_) {
+        Node *next = p->next_;
         delete p;
         p = next;
     }
-    d_dummy->d_prev = d_dummy->d_next = d_dummy;
+    dummy_->prev_ = dummy_->next_ = dummy_;
 }
 
 template <typename V>
@@ -118,12 +134,12 @@ void list<V>::show() const {
     #endif
     std::cout << "[ ";
     if (!empty()) {
-        Node *p = d_dummy->d_next;
-        while (p->d_next != d_dummy) {
-          std::cout << p->d_val << " -> ";
-          p = p->d_next;
+        Node *p = dummy_->next_;
+        while (p->next_ != dummy_) {
+          std::cout << p->val_ << " -> ";
+          p = p->next_;
         }
-        std::cout << p->d_val;
+        std::cout << p->val_;
     }
     std::cout << " ]\n";
 }
@@ -131,17 +147,17 @@ void list<V>::show() const {
 template <typename V>
 list<V>::~list() {
     clear();
-    delete d_dummy;
+    delete dummy_;
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream &os, list<T> &l) {
   os << "[ ";
   if (!l.empty()) {
-    auto p = l.d_dummy->d_next;
-    while (p->d_next != l.d_dummy) {
-      os << p->d_val << " -> " ;
-      p = p->d_next;
+    auto p = l.dummy_->next_;
+    while (p->next_ != l.dummy_) {
+      os << p->val_ << " -> " ;
+      p = p->next_;
     }
     os << p->d_val;
   }
