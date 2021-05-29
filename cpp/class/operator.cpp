@@ -6,11 +6,13 @@ class ptr{
 public:
   ptr* operator->() {
     cout << "operator->" << endl;
-    return nullptr;
+    return this;
   }
+
+  int a = 0;
 };
 
 int main() {
   ptr p;
-  p->();
+  cout << p->a << endl;
 }
