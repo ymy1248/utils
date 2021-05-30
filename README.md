@@ -6,6 +6,11 @@
 
 After 3 years of working experience, I realized creation is the beast way to learn. This project is also like a C++ reference book for me.
 
+## CPP 
+Directory: [./cpp](./cpp)
+
+Cpp examples and sandbox mostly from *Effective C++, Effective Modern C++ and C++ templates*
+
 ## Data Structure
 Directory: [./ds](./ds)
 
