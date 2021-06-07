@@ -9,7 +9,7 @@ install(TARGETS ymy_ds
         LIBRARY DESTINATION utils_ds
         ARCHIVE DESTINATION utils_ds_static)
 install(FILES ${DS_HDRS} DESTINATION utils_ds_include)
-# install(FILES ${EXPORT_HDRS} DESTINATION utils_ds_include)
+install(FILES ${EXPORT_HDRS} DESTINATION utils_ds_include)
 
 message("Finished src")
 message(${CMAKE_INSTALL_PREFIX})

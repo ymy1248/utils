@@ -3,6 +3,9 @@
 
 using namespace std;
 
+template <typename T>
+using VoidIfLarge = std::enable_if_t<(sizeof(T) >= 4), void>;
+
 template <typename T, typename = std::enable_if_t<(sizeof(T) >= 4)>>
 void foo(T t) {
   cout << "T size is larger or equal to 4.\n";
@@ -15,7 +18,7 @@ void foo(T t) {
 // }
 
 template <typename T>
-std::enable_if_t<(sizeof(T) >= 4), void>
+VoidIfLarge<T>
 foo1(T t) {
   cout << "T size is larger or equal to 4.\n";
 }
@@ -29,6 +32,11 @@ foo1(T t) {
 template <typename T>
 void foo2Impl(T t, std::true_type) {
   cout << __FUNCTION__ << ": T size is larger or equal to 4.\n";
+}
+
+template <typename T, typename = std::enable_if_t<std::is_floating_point<T>::value>>
+void foo3(T t) {
+  cout << __FUNCTION__ << endl;
 }
 
 template <typename T>
@@ -49,5 +57,6 @@ int main() {
   foo1(i);
   foo1(s);
 
-  foo2(i);
+  // foo2(i);
+  // foo2(s);
 }
