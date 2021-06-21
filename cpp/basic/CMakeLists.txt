@@ -1,3 +1,5 @@
 add_executable(operator operator.cpp)
 add_executable(store_func store_func.cpp)
 add_executable(set set.cpp)
+add_executable(lambda lambda.cpp)
+add_executable(unordered_map unordered_map.cpp)
