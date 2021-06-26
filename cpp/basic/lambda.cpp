@@ -1,6 +1,6 @@
 #include "env.hpp"
 
-//!error out we can't have auto type function
+// !error out we can't have auto type function
 // using CastFunc = auto(*)(void*); 
 class Derived0 : public Base {
  public:
