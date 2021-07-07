@@ -8,6 +8,7 @@
 #include <map>
 #include <mutex>
 #include <thread>
+#include <type_traits>
 
 class Base {
  public:
