@@ -49,14 +49,29 @@ void foo2(T t) {
   foo2Impl(t, sizeof(T) >= 4);
 }
 
+// Enable if for ctor
+template <typename T>
+class Widget{
+ public:
+    template<typename U = T>
+    explicit Widget(typename std::enable_if<is_same<U, int>::value>::type* = nullptr) {
+        cout << "int ctor\n";
+    }
+
+    template<typename U = T>
+    explicit Widget(T f, typename std::enable_if<is_same<U, float>::value>::type* = 0) {
+        cout << "float ctor: " << f << endl;
+    }
+};
+
 int main() {
-  int i = 0;
-  uint16_t s = 0;
-  foo(i);
+    int i = 0;
+    uint16_t s = 0;
+    foo(i);
 
-  foo1(i);
-  foo1(s);
+    foo1(i);
+    foo1(s);
 
-  // foo2(i);
-  // foo2(s);
+    // Widget<int> wi(1);
+    Widget<float> wf(1.0);
 }

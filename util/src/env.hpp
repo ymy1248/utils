@@ -12,6 +12,7 @@
 
 class Base {
  public:
+
   Base() {
     std::cout << "Base CTOR\n";
   }

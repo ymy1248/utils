@@ -1,5 +1,6 @@
 #include <env.hpp>
 
+using namespace std;
 template<typename T>
 class B {
  public:
@@ -18,12 +19,13 @@ class D : public B<T> {
 
 class Derived : public Base {
  public:
-    Derived() {
-        _num = 10;
-    }
+    // Derived() {
+    //     _num = 10;
+    // }
 };
 
 int main()
 {
-    D<int> d(20);
+    Derived d;
+    d.echo();
 }
