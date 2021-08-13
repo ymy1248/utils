@@ -1,6 +1,6 @@
 #include "env.hpp"
 
-using namspace std;
+using namespace std;
 
 int main() {
 }

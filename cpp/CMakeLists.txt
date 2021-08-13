@@ -8,3 +8,4 @@ message(${YMY_UTILS_GLOBAL})
 
 add_subdirectory(template)
 add_subdirectory(basic)
+add_subdirectory(boost)
