@@ -20,6 +20,12 @@ struct S1
 
 struct S
 {
+    S() = default;
+    S(S &&s) = delete;
+    S(const S &s) = delete;
+    void operator=(const S &s) = delete;
+    S& operator=(S &&s) = delete;
+
     template <typename Archive>
     void serialize(Archive &ar, const unsigned int version) 
     {
@@ -60,5 +66,28 @@ int main()
         S s;
         ia >> s;
         std::cout << s._s._i << std::endl;
+    }
+
+    {
+        S s;
+        s._s._i = 12345;
+        S *sPtr1 = &s;
+        S *sPtr2 = &s;
+        std::ofstream ofile("sPtr.txt");
+        text_oarchive oa(ofile);
+        oa << sPtr1;
+        oa << sPtr2;
+        std::cout << "sPtr1: " << sPtr1 << std::endl;
+        std::cout << "sPtr2: " << sPtr2 << std::endl;
+    }
+
+    {
+        S *sPtr1, *sPtr2;
+        std::ifstream ifile("sPtr.txt");
+        text_iarchive ia(ifile);
+        ia >> sPtr1;
+        ia >> sPtr2;
+        std::cout << "sPtr1: " << sPtr1 << std::endl;
+        std::cout << "sPtr2: " << sPtr2 << std::endl;
     }
 }

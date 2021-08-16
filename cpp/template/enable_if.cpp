@@ -64,6 +64,32 @@ class Widget{
     }
 };
 
+
+// Better way to SFINAE a CTOR, thanks to RL
+template <typename T, bool b = false>
+class MYCLASS
+{
+    public:
+
+    template < typename typeT = T, bool myB = b, typename std::enable_if_t<myB && std::is_same_v<typeT, int>, bool > = true >
+    MYCLASS(T a);
+
+    // template < typename typeT = T, bool myB = b, typename std::enable_if_t<myB && std::is_same_v<typeT, int>, bool > = true >
+    // MYCLASS(T a) { 
+    //     // static_assert(std::is_same<T, double>::value);
+    //     x = a;
+    // }
+    void print () {std::cout << x << std::endl;}
+    
+    int x;
+};
+
+template <typename T, bool b>
+template <typename typeT, bool myB, typename std::enable_if_t<myB && std::is_same_v<typeT, int>, bool >>
+MYCLASS<T, b>::MYCLASS(T a) {
+    x = a;
+}
+
 int main() {
     int i = 0;
     uint16_t s = 0;
@@ -74,4 +100,9 @@ int main() {
 
     // Widget<int> wi(1);
     Widget<float> wf(1.0);
+
+    MYCLASS<double, true> x(200.0);
+    x.print();
+
+    return 0;
 }
