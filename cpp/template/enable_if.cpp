@@ -64,14 +64,12 @@ class Widget{
     }
 };
 
-
-// Better way to SFINAE a CTOR, thanks to RL
 template <typename T, bool b = false>
 class MYCLASS
 {
     public:
 
-    template < typename typeT = T, bool myB = b, typename std::enable_if_t<myB && std::is_same_v<typeT, int>, bool > = true >
+    template <typename std::enable_if_t<b && std::is_same_v<T, int>, bool > = true >
     MYCLASS(T a);
 
     // template < typename typeT = T, bool myB = b, typename std::enable_if_t<myB && std::is_same_v<typeT, int>, bool > = true >
@@ -84,8 +82,8 @@ class MYCLASS
     int x;
 };
 
-template <typename T, bool b>
-template <typename typeT, bool myB, typename std::enable_if_t<myB && std::is_same_v<typeT, int>, bool >>
+ template <typename T, bool b>
+template <typename std::enable_if_t<b && std::is_same_v<T, int>, bool >>
 MYCLASS<T, b>::MYCLASS(T a) {
     x = a;
 }
@@ -101,7 +99,7 @@ int main() {
     // Widget<int> wi(1);
     Widget<float> wf(1.0);
 
-    MYCLASS<double, true> x(200.0);
+    MYCLASS<int, true> x(200);
     x.print();
 
     return 0;

@@ -9,6 +9,8 @@
 #include <mutex>
 #include <thread>
 #include <type_traits>
+#include <deque>
+#include <vector>
 
 class Base {
  public:

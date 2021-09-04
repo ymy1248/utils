@@ -1,6 +1,7 @@
 #include <fstream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/vector.hpp>
 
 #include "env.hpp"
 
@@ -33,6 +34,26 @@ struct S
         ar & _s;
     }
     S1 _s;
+};
+
+struct PtrTest 
+{
+    PtrTest() : _data(10), _ptrs(10)
+    {
+        for (int i = 0; i < 10; ++i) {
+            _data[i] = i;
+            _ptrs[i] = &_data[i];
+        }
+    }
+
+    template <typename Archive>
+    void serialize(Archive &ar, const unsigned int version) 
+    {
+        ar & _data;
+        ar & _ptrs;
+    }
+    std::vector<int> _data;
+    std::vector<int*> _ptrs;
 };
 
 int main() 
@@ -89,5 +110,22 @@ int main()
         ia >> sPtr2;
         std::cout << "sPtr1: " << sPtr1 << std::endl;
         std::cout << "sPtr2: " << sPtr2 << std::endl;
+    }
+
+    {
+        PtrTest test;
+        std::ofstream ofile("PtrTest.txt");
+        text_oarchive oa(ofile);
+        oa << test;
+    }
+
+    {
+        PtrTest test;
+        std::ifstream ifile("PtrTest.txt");
+        text_iarchive ia(ifile);
+        ia >> test;
+        for (auto &p : test._ptrs) {
+            std::cout << *p << std::endl;
+        }
     }
 }
