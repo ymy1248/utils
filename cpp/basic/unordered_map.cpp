@@ -20,5 +20,28 @@ int main() {
     size_t k2 = 1;
     i2i.insert({&k1, 0});
     auto res = i2i.insert({&k2, 1});
-    cout << res.second << endl;
+    // cout << res.second << endl;
+
+    // this is a real copy, not like iterator
+    for(auto p : i2i) {
+        p.second = 2;
+    }
+    for(auto p : i2i) {
+        cout << p.second << endl;
+    }
+
+    // this is a reference
+    for(auto &p : i2i) {
+        p.second = 2;
+    }
+    for(auto p : i2i) {
+        cout << p.second << endl;
+    }
+
+    for (auto it = i2i.begin(); it != i2i.end();++it) {
+        it->second = 3;
+    }
+    for(auto p : i2i) {
+        cout << p.second << endl;
+    }
 }
