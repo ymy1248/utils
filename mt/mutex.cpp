@@ -1,26 +1,38 @@
 #include <gtest/gtest.h>
 #include <iostream>
-#include <shared_mutex>
 #include <thread>
-
-#include "env.hpp"
+#include "gtest/gtest_pred_impl.h"
 
 using namespace std;
 
-std::mutex mtx;
+std::mutex mtx1;
+std::mutex mtx2;
 
-void log(ostringstream *os, char c) {
-    std::lock_guard<std::mutex> lock(mtx);
+void logTest1(ostringstream *os) {
+    std::lock_guard<std::mutex> lock(mtx1);
     for (int i = 0; i < 10; ++i) {
-        (*os) << c;
+        *os << '1';
     }
-    (*os) << "\n";
+    *os << "\n";
+    mtx2.unlock();
+}
+void logTest2(ostringstream *os) {
+    std::lock_guard<std::mutex> lock(mtx2);
+    for (int i = 0; i < 10; ++i) {
+        *os << '2';
+    }
+    *os << "\n";
+}
+void test(char c, char d) {
+    cout << c << endl;
 }
 
-TEST(mutex, basic) {
+TEST(Mutex, basic) {
     ostringstream os;
-    std::thread t1(log, &os, '1');
-    std::thread t2(log, &os, '2');
+    mtx2.lock();
+    std::thread t1(logTest1, &os);
+    std::thread t2(logTest2, &os);
+    // t.join();
     t1.join();
     t2.join();
     EXPECT_EQ(os.str(), string("1111111111\n2222222222\n"));
