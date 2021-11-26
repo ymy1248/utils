@@ -8,3 +8,5 @@ add_executable(mutex mutex.cpp)
 add_executable(thread_fance thread_fance.cpp)
 add_executable(atomic atomic.cpp)
 add_executable(thread thread.cpp)
+
+add_test(mutex mutex)

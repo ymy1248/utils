@@ -1,3 +1,4 @@
+#include <gtest/gtest.h>
 #include "env.hpp"
 
 // !error out we can't have auto type function
@@ -22,8 +23,8 @@ int foo(void* ptr) {
   return 1;
 }
 
-int main() {
-  auto (*fi)(void*) = foo;
-  Derived0 d0;
-  auto d = func(d0);
-}
+// int main() {
+//   auto (*fi)(void*) = foo;
+//   Derived0 d0;
+//   auto d = func(d0);
+// }

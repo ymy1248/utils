@@ -6,6 +6,10 @@ link_libraries(util)
 message("CPP project begins!")
 message(${YMY_UTILS_GLOBAL})
 
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+link_libraries(util ${GTEST_BOTH_LIBRARIES})
+
 add_subdirectory(template)
 add_subdirectory(basic)
 add_subdirectory(boost)

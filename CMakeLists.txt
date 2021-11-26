@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
 project(YMY_UTILS)
 
+enable_testing()
+
+# add_compile_options(-Wall -Werror)
+
 set(YMY_UTILS_GLOBAL "utils global")
 
 # set(CMAKE_CXX_COMPILER g++)

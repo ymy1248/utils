@@ -2,6 +2,7 @@
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
+#include <gtest/gtest.h>
 
 #include "env.hpp"
 
@@ -56,8 +57,7 @@ struct PtrTest
     std::vector<int*> _ptrs;
 };
 
-int main() 
-{
+TEST(Archive, basic) {
     {
         std::ofstream file("archive.txt");
         text_oarchive oa(file);
@@ -112,20 +112,20 @@ int main()
         std::cout << "sPtr2: " << sPtr2 << std::endl;
     }
 
-    {
-        PtrTest test;
-        std::ofstream ofile("PtrTest.txt");
-        text_oarchive oa(ofile);
-        oa << test;
-    }
+    // {
+    //     PtrTest test;
+    //     std::ofstream ofile("PtrTest.txt");
+    //     text_oarchive oa(ofile);
+    //     oa << test;
+    // }
 
-    {
-        PtrTest test;
-        std::ifstream ifile("PtrTest.txt");
-        text_iarchive ia(ifile);
-        ia >> test;
-        for (auto &p : test._ptrs) {
-            std::cout << *p << std::endl;
-        }
-    }
+    // {
+    //     PtrTest test;
+    //     std::ifstream ifile("PtrTest.txt");
+    //     text_iarchive ia(ifile);
+    //     ia >> test;
+    //     for (auto &p : test._ptrs) {
+    //         std::cout << *p << std::endl;
+    //     }
+    // }
 }
