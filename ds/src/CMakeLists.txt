@@ -1,5 +1,5 @@
 set(DS_SRCS trie.cpp)
-set(DS_HDRS list.hpp trie.hpp vector.hpp deque.hpp)
+set(DS_HDRS list.hpp trie.hpp vector.hpp deque.hpp tree.hpp)
 # set(EXPORT_HDRS list.hpp)
 
 # set(CMAKE_INSTALL_PREFIX $ENV{HOME}/ymy_pkgs)
@@ -11,5 +11,4 @@ install(TARGETS ymy_ds
 install(FILES ${DS_HDRS} DESTINATION utils_ds_include)
 install(FILES ${EXPORT_HDRS} DESTINATION utils_ds_include)
 
-message("Finished src")
 message(${CMAKE_INSTALL_PREFIX})
