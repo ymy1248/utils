@@ -1,3 +1,4 @@
+#include <cmath>
 #include <fstream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -58,10 +59,11 @@ struct PtrTest
 };
 
 TEST(Archive, basic) {
+    int i;
     {
+        i = 1;
         std::ofstream file("archive.txt");
         text_oarchive oa(file);
-        int i = 1;
         oa << i;
     }
 
@@ -70,12 +72,12 @@ TEST(Archive, basic) {
         std::ifstream ifile("archive.txt");
         text_iarchive ia(ifile);
         ia >> j;
-        std::cout << j << std::endl;
+        EXPECT_EQ(i, j);
     }
 
+    S s;
+    s._s._i = 12346;
     {
-        S s;
-        s._s._i = 12345;
         std::ofstream ofile("s.txt");
         text_oarchive oa(ofile);
         oa << s;
@@ -84,14 +86,12 @@ TEST(Archive, basic) {
     {
         std::ifstream ifile("s.txt");
         text_iarchive ia(ifile);
-        S s;
-        ia >> s;
-        std::cout << s._s._i << std::endl;
+        S si;
+        ia >> si;
+        EXPECT_EQ(si._s._i, s._s._i);
     }
 
     {
-        S s;
-        s._s._i = 12345;
         S *sPtr1 = &s;
         S *sPtr2 = &s;
         std::ofstream ofile("sPtr.txt");
@@ -110,6 +110,9 @@ TEST(Archive, basic) {
         ia >> sPtr2;
         std::cout << "sPtr1: " << sPtr1 << std::endl;
         std::cout << "sPtr2: " << sPtr2 << std::endl;
+        EXPECT_EQ(sPtr1->_s._i, s._s._i);
+        EXPECT_EQ(sPtr2->_s._i, s._s._i);
+        EXPECT_EQ(sPtr2, sPtr1);
     }
 
     // {

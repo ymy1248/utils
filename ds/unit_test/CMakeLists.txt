@@ -12,13 +12,12 @@ endif()
 enable_testing()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src ${Boost_INCLUDE_DIR})
+link_libraries(${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} ymy_ds)
 
 add_executable(test_trie test_trie.cpp)
 add_executable(test_vector test_vector.cpp)
 add_executable(test_list test_list.cpp)
-target_link_libraries(test_trie ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} ymy_ds)
-target_link_libraries(test_vector ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} ymy_ds)
-target_link_libraries(test_list ${GTEST_BOTH_LIBRARIES} ${Boost_LIBRARIES} ymy_ds)
+add_executable(test_tree test_tree.cpp)
 
 include(GoogleTest)
 
