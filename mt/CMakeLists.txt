@@ -11,3 +11,4 @@ add_executable(thread thread.cpp)
 
 gtest_discover_tests(mutex mutex)
 gtest_discover_tests(thread thread)
+gtest_discover_tests(atomic atomic)
