@@ -1,4 +1,9 @@
 link_libraries(${GTEST_BOTH_LIBRARIES})
+
+include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+
+link_libraries(util ${GTEST_BOTH_LIBRARIES})
+
 add_executable(operator operator.cpp)
 add_executable(store_func store_func.cpp)
 add_executable(set set.cpp)
@@ -15,3 +20,9 @@ add_executable(ref_wrapper ref_wrapper.cpp)
 add_executable(play play.cpp)
 add_executable(sizeof sizeof.cpp)
 add_executable(fam fam.cpp)
+
+add_executable(smart_ptr smart_ptr.cpp)
+add_executable(emplace emplace.cpp)
+
+gtest_discover_tests(smart_ptr smart_ptr)
+gtest_discover_tests(emplace emplace)

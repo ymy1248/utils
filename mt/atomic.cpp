@@ -1,3 +1,14 @@
+/**
+ * @file atomic.cpp
+ * @author ymy1248 (ymy1248@outlook.com)
+ * @brief Atomic operation 
+ * @version 0.1
+ * @date 2022-01-24
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <gtest/gtest.h>
 #include <atomic>
 #include <thread>
@@ -5,6 +16,8 @@
 using namespace std;
 
 const uint REPEAT = 2E4;
+
+// Reference from great article https://zhuanlan.zhihu.com/p/382372072
 
 class X {
  public:
@@ -33,7 +46,7 @@ void acquire()
     r2 = x->i;
 }
 
-TEST(atomic, release_acquire)
+TEST(zhihu, release_acquire)
 {
     for (uint i = 0; i < REPEAT; ++i) {
         A = 0;
@@ -77,7 +90,7 @@ void read_y_then_x()
         ++z;
 }
 
-TEST(atomic, sc)
+TEST(zhihu, sc)
 {
     for (int i = 0; i < REPEAT; ++i) {
         x = false;
@@ -120,7 +133,7 @@ void read_y_then_x_a()
         ++z;
 }
 
-TEST(atomic, ar)
+TEST(zhihu, ar)
 {
     for(int i = 0; i < REPEAT; ++i) {
         x = false;
@@ -153,7 +166,7 @@ void read_y_then_x_relaxed()
         ++z;
 }
 
-TEST(atomic, relaxed)
+TEST(zhihu, relaxed)
 {
     for (int i = 0; i <REPEAT; ++i) {
         x = false;
@@ -165,4 +178,10 @@ TEST(atomic, relaxed)
         b.join();
         // EXPECT_EQ(z, 0);
     }
+}
+
+TEST(InAction, atomic_flag)
+{
+    std::atomic_flag flag = ATOMIC_FLAG_INIT;
+    flag.clear();
 }
