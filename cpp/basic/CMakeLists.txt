@@ -1,8 +1,6 @@
-link_libraries(${GTEST_BOTH_LIBRARIES})
+link_libraries(util ${GTEST_BOTH_LIBRARIES})
 
 include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
-
-link_libraries(util ${GTEST_BOTH_LIBRARIES})
 
 add_executable(operator operator.cpp)
 add_executable(store_func store_func.cpp)

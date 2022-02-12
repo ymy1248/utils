@@ -1,12 +1,6 @@
 # cmake_minimum_required(VERSION 3.14)
 project(CPP)
 
-link_libraries(util)
-
-message("CPP project begins!")
-message(${YMY_UTILS_GLOBAL})
-
-find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
 link_libraries(util ${GTEST_BOTH_LIBRARIES})
 
