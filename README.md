@@ -4,22 +4,16 @@
 > 
 > --Richard Feynman
 
-This project is also like a C++ reference book for me.
+This project is like a C++ reference book for me. Using gtest to define behavior and knowledge.
 
-## CPP 
-Directory: [./cpp](./cpp)
+## [CPP](./cpp)
+Cpp examples and sandbox mostly from *Effective C++, Effective Modern C++* and *C++ templates*
 
-Cpp examples and sandbox mostly from *Effective C++, Effective Modern C++ and C++ templates*
-
-## Data Structure
-Directory: [./ds](./ds)
-
+## [Data Structure](./ds)
 Data structure I learned, I won't and can't write it as complex as STL. I can only simply write down the basic idea and algorithm.
 
-## Multi-threading
-Directory: [./mt](./mt)
-
+## [Multi-threading](./mt)
 Test code when reading book *C++ Concurrency in Action*
 
-## Snippet
-Some snippet code for some util functions.
+## [Snippet](./snippet)
+Snippet code is mostly from solving [leetcode](https://leetcode-cn.com/u/ymy1248/) problems.
