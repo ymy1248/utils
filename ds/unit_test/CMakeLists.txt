@@ -18,9 +18,11 @@ add_executable(test_trie test_trie.cpp)
 add_executable(test_vector test_vector.cpp)
 add_executable(test_list test_list.cpp)
 add_executable(test_tree test_tree.cpp)
+add_executable(test_disjoint_set test_disjoint_set.cpp)
 
 include(GoogleTest)
 
 gtest_discover_tests(test_trie)
 gtest_discover_tests(test_vector)
 gtest_discover_tests(test_list)
+gtest_discover_tests(test_disjoint_set)
