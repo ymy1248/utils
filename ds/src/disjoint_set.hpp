@@ -17,9 +17,41 @@
 namespace ymy {
 
 template <typename Container = std::vector<size_t>> 
+class TrivalDjSet {
+public:
+    /**
+     * @brief Get the Root object. Enhancement: with each query, connect previous node parent to current parent to decrease the tree height.
+     * 
+     * @param n 
+     * @return size_t 
+     */
+    size_t getRoot(const size_t &n) const
+    {
+        size_t next;
+        size_t root = n;
+        size_t prev = n;
+        while (root != (next = _parent[root])) {
+            _parent[prev] = next;
+            prev = root;
+            root = next;
+        }
+        return root;
+    }
+
+private:
+    mutable Container _parent;
+    Container _height;
+};
+
+/**
+ * @brief Typical disjoint set. Always connect shorter tree to higher.
+ * 
+ * @tparam Container 
+ */
+template <typename Container = std::vector<size_t>> 
 class DisjointSet {
 private:
-    Container _parent;
+    mutable Container _parent;
     Container _height;
 
 public:
