@@ -12,6 +12,7 @@
 #include <gtest/gtest.h>
 #include <atomic>
 #include <thread>
+#include <vector.hpp>
 
 using namespace std;
 
@@ -184,4 +185,9 @@ TEST(InAction, atomic_flag)
 {
     std::atomic_flag flag = ATOMIC_FLAG_INIT;
     flag.clear();
+}
+
+TEST(atomic, type)
+{
+    // _Atomic int *i1;
 }

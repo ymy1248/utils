@@ -21,6 +21,8 @@ add_executable(fam fam.cpp)
 
 add_executable(smart_ptr smart_ptr.cpp)
 add_executable(emplace emplace.cpp)
+add_executable(static static.hpp static.cpp static_init.cpp)
 
 gtest_discover_tests(smart_ptr smart_ptr)
 gtest_discover_tests(emplace emplace)
+gtest_discover_tests(static static)

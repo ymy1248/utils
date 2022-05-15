@@ -8,8 +8,8 @@ size_t bsearch(const vector<T> &v, function<bool(const vector<T>&, size_t)> chec
   size_t lo = 0, hi = v.size() - 1;
   while (lo < hi) {
     size_t mid = lo + hi >> 1;
-    if (check(v, mid)) lo = mid;
-    else hi = mid + 1;
+    if (check(v, mid)) hi = mid;
+    else lo = mid + 1;
   }
   return lo;
 }

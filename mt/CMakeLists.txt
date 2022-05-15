@@ -1,8 +1,9 @@
 project(MT)
 find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src)
+include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src
+                    ${CMAKE_SOURCE_DIR}/ds/src)
  
-link_libraries(util ${GTEST_BOTH_LIBRARIES})
+link_libraries(util ${GTEST_BOTH_LIBRARIES} ymy_ds)
 
 add_executable(mutex mutex.cpp)
 add_executable(atomic atomic.cpp)

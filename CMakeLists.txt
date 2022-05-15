@@ -7,8 +7,8 @@ enable_testing()
 
 set(YMY_UTILS_GLOBAL "utils global")
 
-# set(CMAKE_CXX_COMPILER "/usr/local/Cellar/gcc/11.1.0/bin/g++-11")
-# set(CMAKE_C_COMPILER "/usr/local/Cellar/gcc/11.1.0/bin/gcc-11")
+# set(CMAKE_C_COMPILER "/usr/bin/clang") 
+# set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_INSTALL_PREFIX $ENV{HOME}/ymy_pkgs)
 set(CMAKE_CXX_STANDARD 17)
