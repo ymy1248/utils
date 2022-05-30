@@ -7,6 +7,7 @@ add_subdirectory(unit_test)
 
 add_executable(sort sort.cpp)
 add_executable(knapsack knapsack.cpp)
+add_executable(dijkstra dijkstra.cpp)
 
 gtest_discover_tests(sort sort)
 gtest_discover_tests(knapsack knapsack)
